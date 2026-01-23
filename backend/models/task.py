@@ -14,7 +14,10 @@ class Task:
                  status: str = "todo",
                  created_at: Optional[str]=None,
                  task_type: str = "work",
-                 duration_est: Optional[int]=None, ):
+                 duration_est: Optional[int]=None,
+                 calendar_event_id: Optional[str]=None
+                 ):
+        self.calendar_event_id = calendar_event_id
         self.id = usr_id
         self.title = title
         self.description = description
@@ -38,7 +41,8 @@ class Task:
             'status': self.status,
             'created_at': self.created_at,
             'task_type': self.task_type,
-            'duration_est': self.duration_est
+            'duration_est': self.duration_est,
+            'calendar_event_id': self.calendar_event_id
         }
 
     # return the task from the given data

@@ -2,10 +2,12 @@ from flask import Blueprint, request, jsonify
 from backend.services.tasks_service import TaskService
 from backend.services.nlp_parser_service import NLPParser
 from backend.services.balancer_service import WorkloadBalancer
+from backend.services.calendar_services import CalendarService
 
 tasks_bp = Blueprint('tasks', __name__)
 task_service = TaskService()
 nlp_parser = NLPParser()
+calendar_service = CalendarService()
 
 @tasks_bp.route('/', methods=['GET'])
 def get_all_tasks():
@@ -30,6 +32,14 @@ def create_task():
     workload_check = balancer.check_new_task_impact(parsed_task)
 
     new_task = task_service.add_task(parsed_task)
+
+    if data.get('sync_calendar', False) and parsed_task.get('due_date'):
+        try:
+            if calendar_service.is_authenticated():
+                event_id = calendar_service.create_event(new_task.to_dict())
+                task_service.update_task(new_task.id, {'calender_event_id': event_id})
+        except Exception as e:
+            print(f"Calendar sync error: {e}")
 
     return jsonify({
         'task': new_task.to_dict(),
