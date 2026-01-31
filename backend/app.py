@@ -19,9 +19,9 @@ def create_app():
     app.register_blueprint(calender_bp, url_prefix='/api/calendar')
 
     return app
+app = create_app()
 
 if __name__ == '__main__':
-    app = create_app()
     app.run(debug=True, port=5000)
     app.run(host='0.0.0.0', port=port, debug=False)
 
