@@ -46,7 +46,7 @@ class NLPParser:
                                            "tasks under 10 minutes"
 
                         },
-                        "duration_estimate": {
+                        "duration_est": {
                             "type": "string",
                             "description": "Estimated duration in minutes. Parse from phrases like '30 minutes', '2 hours', "
                                            "'quick task' (5-10 min)"
@@ -86,6 +86,12 @@ Guidelines:
 
             function_call = response.choices[0].message.function_call
             parsed_data = json.loads(function_call.arguments)
+
+            if 'duration_est' in parsed_data and parsed_data['duration_est']:
+                try:
+                    parsed_data['duration_est'] = int(parsed_data['duration_est'])
+                except (ValueError, TypeError):
+                    parsed_data['duration_est'] = 0
 
             return parsed_data
 

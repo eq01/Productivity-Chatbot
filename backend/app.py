@@ -10,8 +10,8 @@ def create_app():
         return {'status': 'healthy'}, 200
 
     from backend.routes.tasks import tasks_bp
-    from routes.chat import chat_bp
-    from routes.calendar import calender_bp
+    from backend.routes.chat import chat_bp
+    from backend.routes.calendar import calender_bp
 
     app.register_blueprint(tasks_bp, url_prefix='/api/tasks')
     app.register_blueprint(chat_bp, url_prefix='/api/chat')

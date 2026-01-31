@@ -101,14 +101,14 @@ class CalendarService:
             if task.get('due_time'):
                 start_datetime = f"{start_date}T{task['due_time']}:00"
 
-                dur_mins = task.get('duration_estimate', 60)
+                dur_mins = task.get('duration_est', 60)
                 start_dt = datetime.fromisoformat(start_datetime)
                 end_dt = start_dt + timedelta(minutes=dur_mins)
                 end_datetime = end_dt.isoformat()
 
                 event = {
                     'summary': task['title'],
-                    'description': task['description', ''],
+                    'description': task.get('description', ''),
                     'start': {
                         'dateTime': start_datetime,
                         'timeZone': 'America/New_York',
@@ -121,7 +121,7 @@ class CalendarService:
             else:
                 event = {
                     'summary': task['title'],
-                    'description': task['description', ''],
+                    'description': task.get('description', ''),
                     'start': {'date' : start_date},
                     'end': {'date' : start_date},
                 }

@@ -1,4 +1,3 @@
-from datetime import datetime, timedelta
 from typing import List, Dict
 from backend.models.task import Task
 
@@ -27,7 +26,7 @@ class WorkloadBalancer:
 
     def check_new_task_impact(self, new_task_data: Dict) -> Dict:
         """Check how adding a new task impacts the workload"""
-        due_date = new_task_data.get['due_date']
+        due_date = new_task_data.get('due_date')
 
         if not due_date:
             return {
@@ -43,7 +42,13 @@ class WorkloadBalancer:
         new_count = curr_count + 1
 
         curr_mins = sum(t.duration_est or 0 for t in curr_tasks)
-        new_mins = curr_mins + new_task_data.get('duration_estimate', 0)
+        duration = new_task_data.get('duration_est', 0)
+        if isinstance(duration, str):
+            try:
+                duration = int(duration)
+            except ValueError:
+                duration = 0
+        new_mins = curr_mins + duration
 
         warnings = []
         can_add = True
@@ -59,7 +64,7 @@ class WorkloadBalancer:
             can_add = False
         elif new_mins > self.RECOMMENDED_DAILY_MINS:
             hours = new_mins / 60
-            warnings.append("⚠️ This will bring your total to {round(hours, 1)} hours on {due_date}. You'll have a busy day!")
+            warnings.append(f"⚠️ This will bring your total to {round(hours, 1)} hours on {due_date}. You'll have a busy day!")
 
         if can_add and len(warnings) == 0:
             message = f"Good choice! {due_date} has a balanced workload."

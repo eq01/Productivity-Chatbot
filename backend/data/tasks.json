@@ -1,1 +1,93 @@
-[]
+[
+  {
+    "id": "4789c6a5-370e-460e-b559-11e9ccaf3d7d",
+    "title": "buy groceries",
+    "description": null,
+    "due_date": "2026-01-26",
+    "due_time": null,
+    "priority": "medium",
+    "status": "todo",
+    "created_at": null,
+    "task_type": "personal",
+    "duration_est": null,
+    "calendar_event_id": null
+  },
+  {
+    "id": "35dc36cf-1666-4f13-9301-f936d2445ea1",
+    "title": "team meeting",
+    "description": null,
+    "due_date": "2026-01-26",
+    "due_time": "16:00",
+    "priority": "medium",
+    "status": "todo",
+    "created_at": null,
+    "task_type": "work",
+    "duration_est": 30,
+    "calendar_event_id": null
+  },
+  {
+    "id": "33a396d3-36bb-4c46-8e3e-289bebb50ee3",
+    "title": "Show tasks for tomorrow",
+    "description": null,
+    "due_date": "2026-01-26",
+    "due_time": null,
+    "priority": "medium",
+    "status": "todo",
+    "created_at": null,
+    "task_type": "quick",
+    "duration_est": 5,
+    "calendar_event_id": null
+  },
+  {
+    "id": "e2c57221-4922-4ded-86e4-adef30c65473",
+    "title": "buy groceries",
+    "description": null,
+    "due_date": "2026-01-27",
+    "due_time": null,
+    "priority": "medium",
+    "status": "todo",
+    "created_at": null,
+    "task_type": "personal",
+    "duration_est": null,
+    "calendar_event_id": null
+  },
+  {
+    "id": "c4051b06-c293-415c-8c95-3afc0e98ee55",
+    "title": "team meeting",
+    "description": null,
+    "due_date": "2026-01-29",
+    "due_time": "14:00",
+    "priority": "medium",
+    "status": "todo",
+    "created_at": null,
+    "task_type": "work",
+    "duration_est": null,
+    "calendar_event_id": null
+  },
+  {
+    "id": "7a7b3875-32fe-4542-8c40-b7afaf08ed3c",
+    "title": "team meeting",
+    "description": null,
+    "due_date": "2026-01-29",
+    "due_time": "15:00",
+    "priority": "medium",
+    "status": "todo",
+    "created_at": null,
+    "task_type": "work",
+    "duration_est": null,
+    "calendar_event_id": null
+  },
+  {
+    "id": "960364d2-0e99-4de6-b47c-801bdc02b58a",
+    "title": "Team meeting",
+    "description": null,
+    "due_date": "2026-01-28",
+    "due_time": "21:00",
+    "priority": "medium",
+    "status": "done",
+    "created_at": null,
+    "task_type": "work",
+    "duration_est": null,
+    "calendar_event_id": null
+  }
+]

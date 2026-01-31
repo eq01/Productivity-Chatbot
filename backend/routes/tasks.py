@@ -32,12 +32,14 @@ def create_task():
     workload_check = balancer.check_new_task_impact(parsed_task)
 
     new_task = task_service.add_task(parsed_task)
+    event_id = None
 
     if data.get('sync_calendar', False) and parsed_task.get('due_date'):
         try:
             if calendar_service.is_authenticated():
                 event_id = calendar_service.create_event(new_task.to_dict())
-                task_service.update_task(new_task.id, {'calender_event_id': event_id})
+                task_service.update_task(new_task.id, {'calendar_event_id': event_id})
+                new_task.calendar_event_id = event_id
         except Exception as e:
             print(f"Calendar sync error: {e}")
 
@@ -59,6 +61,16 @@ def update_task(task_id):
 @tasks_bp.route('/<task_id>', methods=['DELETE'])
 def delete_task(task_id):
     """Delete a task"""
+    task = task_service.get_task(task_id)
+
+    if task and task.calendar_event_id:
+        if calendar_service.is_authenticated():
+            try:
+                calendar_service.delete_event(task.calendar_event_id)
+                print(f"Deleted calendar event: {task.calendar_event_id}")
+            except Exception as e:
+                print(f"Calendar delete failed: {e}")
+
     success = task_service.delete_task(task_id)
     if success:
         return jsonify({'message': 'Task deleted'}), 200

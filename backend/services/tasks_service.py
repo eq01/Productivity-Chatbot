@@ -35,7 +35,7 @@ class TaskService:
         self._save_tasks_to_file(tasks)
         return new_task
 
-    def remove_task(self, task_id: str) -> bool:
+    def delete_task(self, task_id: str) -> bool:
         tasks = self._load_tasks_from_file()
         initial_length = len(tasks)
         tasks = [task for task in tasks if task.id != task_id]
@@ -51,15 +51,15 @@ class TaskService:
                 return task
         return None
 
-    def update_task(self, task_data: str, updates: dict) -> Optional[Task]:
+    def update_task(self, task_id: str, updates: dict) -> Optional[Task]:
         tasks = self._load_tasks_from_file()
-        for task, task in enumerate(tasks):
-            if task.id == task_data:
+        for i, task in enumerate(tasks):
+            if task.id == task_id:
                 task_dict = task.to_dict()
                 task_dict.update(updates)
-                tasks[task] = Task.from_dict(task_dict)
+                tasks[i] = Task.from_dict(task_dict)
                 self._save_tasks_to_file(tasks)
-                return tasks[task]
+                return tasks[i]
         return None
 
     def clear_tasks(self):

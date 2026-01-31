@@ -5,7 +5,7 @@ from typing import Optional
 class Task:
     # constructor
     def __init__(self,
-                 usr_id: str,
+                 id: str,
                  title: str,
                  description: Optional[str]=None,
                  due_date: Optional[str]=None,
@@ -18,7 +18,7 @@ class Task:
                  calendar_event_id: Optional[str]=None
                  ):
         self.calendar_event_id = calendar_event_id
-        self.id = usr_id
+        self.id = id
         self.title = title
         self.description = description
         self.due_date = due_date # YYYY-MM-DD format

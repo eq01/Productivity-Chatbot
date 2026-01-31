@@ -72,8 +72,8 @@ Keep it warm, supportive, and concise (150-200 words)."""
         formatted = []
         for task in tasks:
             task_str = f"- {task.get('title')}"
-            if task.get('duration_estimate'):
-                task_str += f" ({task['duration_estimate']} min"
+            if task.get('duration_est'):
+                task_str += f" ({task['duration_est']} min"
             formatted.append(task_str)
 
         return "\n".join(formatted)
