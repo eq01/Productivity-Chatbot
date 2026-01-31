@@ -28,6 +28,13 @@ class CalendarService:
                         client_secret=cred_data.get('client_secret'),
                         scopes=cred_data.get('scopes')
                     )
+
+                    if self.creds and self.creds.expired and self.creds.refresh_token:
+                        from google.auth.transport.requests import Request
+                        self.creds.refresh(Request())
+                        self._save_credentials(self.creds)
+                        print("✅ Refreshed expired credentials")
+
             except Exception as e:
                 print(f"Error loading credentials: {e}")
                 self.creds = None
@@ -87,7 +94,25 @@ class CalendarService:
 
     def is_authenticated(self) -> bool:
         """Check if user is authenticated"""
-        return self.creds is not None and self.creds.valid
+        if not self.creds:
+            return False
+
+        # Check if token is expired
+        if self.creds.expired:
+            if self.creds.refresh_token:
+                try:
+                    from google.auth.transport.requests import Request
+                    self.creds.refresh(Request())
+                    self._save_credentials(self.creds)
+                    print("✅ Token refreshed automatically")
+                    return True
+                except Exception as e:
+                    print(f"❌ Failed to refresh token: {e}")
+                    return False
+            else:
+                return False
+
+        return self.creds.valid
 
     def create_event(self, task: dict) -> str:
         """Create an event"""
@@ -101,7 +126,18 @@ class CalendarService:
             if task.get('due_time'):
                 start_datetime = f"{start_date}T{task['due_time']}:00"
 
-                dur_mins = task.get('duration_est', 60)
+                dur_mins = task.get('duration_est')
+                if dur_mins is None or dur_mins == 0:
+                    dur_mins = 60  # Default to 1 hour if no duration specified
+
+                try:
+                    dur_mins = int(dur_mins)
+                except (ValueError, TypeError):
+                    dur_mins = 60
+
+                start_dt = datetime.fromisoformat(start_datetime)
+                end_dt = start_dt + timedelta(minutes=dur_mins)
+                end_datetime = end_dt.isoformat()
                 start_dt = datetime.fromisoformat(start_datetime)
                 end_dt = start_dt + timedelta(minutes=dur_mins)
                 end_datetime = end_dt.isoformat()

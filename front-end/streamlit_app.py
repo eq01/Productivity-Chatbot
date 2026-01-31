@@ -143,12 +143,6 @@ with st.sidebar:
 
     st.divider()
 
-    # show previous chats
-    st.subheader("Recent Chats")
-    st.caption("work in prog...")
-
-    st.divider()
-
     st.subheader("Google Calendar")
     calendar_status = check_calendar_auth()
 
@@ -178,10 +172,6 @@ with st.sidebar:
 
 
 # Main area
-
-st.title("Productivity Assistant")
-
-st.title("🤖 Productivity Assistant")
 
 # Add a quick start guide
 with st.expander("❓ Quick Start Guide", expanded=False):
@@ -298,7 +288,7 @@ if user_input:
 
     else:
         try:
-            chat_response = requests.post(f"{API_BASE_URL}/chat/message/", json={"content": user_input})
+            chat_response = requests.post(f"{API_BASE_URL}/chat/message", json={"message": user_input})
             reply = chat_response.json()
             st.session_state.chat_history.append({'role': 'assistant', 'content': reply})
 
