@@ -105,9 +105,29 @@ def get_calendar_events():
         print(f"Error getting events: {e}")
         return {'events': []}
 
+
 def get_tasks():
-    response = requests.get(f"{API_BASE_URL}/tasks/")
-    return response.json()
+    try:
+        response = requests.get(f"{API_BASE_URL}/tasks/", timeout=10)
+        response.raise_for_status()
+        data = response.json()
+
+        # Ensure we got a list, not an error object
+        if isinstance(data, list):
+            return data
+        else:
+            print(f"Unexpected response: {data}")
+            st.error(f"Backend returned unexpected data: {data}")
+            return []
+
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching tasks: {e}")
+        st.error(f"Could not fetch tasks: {e}")
+        return []
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        st.error(f"Error: {e}")
+        return []
 
 def toggle_task(task, new_status):
     requests.put(f"{API_BASE_URL}/tasks/{task}", json={"status": new_status})
@@ -306,8 +326,17 @@ st.subheader("Today's To-Do List")
 
 try:
     tasks = get_tasks()
+
+    # Defensive check
+    if not isinstance(tasks, list):
+        st.error("Error: Tasks data is not in the expected format")
+        tasks = []
+
     today = datetime.now().date().isoformat()
-    today_tasks = [t for t in tasks if t.get('due_date') == today or not t.get('due_date')]
+    today_tasks = [
+        t for t in tasks
+        if isinstance(t, dict) and (t.get('due_date') == today or not t.get('due_date'))
+    ]
 
     if not today_tasks:
         st.info("No tasks for today (lucky you). Add some tasks below!")
