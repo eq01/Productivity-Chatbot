@@ -34,6 +34,14 @@ A smart task management application with natural language processing, workload b
 - Task categorization
 - Status tracking (todo, in progress, done)
 
+### Screenshots
+
+![img2.png](images/img2.png)
+
+![img3.png](images/img3.png)
+
+![img.png](images/img.png)
+
 ## Tech Stack
 
 **Backend:**
