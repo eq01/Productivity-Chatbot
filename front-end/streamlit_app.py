@@ -1,8 +1,10 @@
+import os
+
 import streamlit as st
 import requests
 from datetime import datetime
 
-API_BASE_URL = "http://localhost:5000/api"
+API_BASE_URL = os.getenv("API_BASE_URL", "http://localhost:5000/api")
 
 # page title
 st.set_page_config(page_title="Productivity Assistant", layout="wide")
