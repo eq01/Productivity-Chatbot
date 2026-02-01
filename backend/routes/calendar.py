@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, redirect
-from backend.services.calendar_services import CalendarService
+from services.calendar_services import CalendarService
 
 calender_bp = Blueprint('calender', __name__)
 calender_service = CalendarService()

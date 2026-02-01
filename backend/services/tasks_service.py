@@ -3,8 +3,8 @@ import os
 import uuid
 from typing import List, Optional
 
-from backend.config import Config
-from backend.models.task import Task
+from config import Config
+from models.task import Task
 
 
 class TaskService:

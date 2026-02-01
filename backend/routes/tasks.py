@@ -1,8 +1,8 @@
 from flask import Blueprint, request, jsonify
-from backend.services.tasks_service import TaskService
-from backend.services.nlp_parser_service import NLPParser
-from backend.services.balancer_service import WorkloadBalancer
-from backend.services.calendar_services import CalendarService
+from services.tasks_service import TaskService
+from services.nlp_parser_service import NLPParser
+from services.balancer_service import WorkloadBalancer
+from services.calendar_services import CalendarService
 
 tasks_bp = Blueprint('tasks', __name__)
 task_service = TaskService()

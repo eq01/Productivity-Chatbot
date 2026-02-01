@@ -1,7 +1,7 @@
 from datetime import datetime
 
 import openai
-from backend.config import Config
+from config import Config
 from typing import List
 
 openai.api_key = Config.OPENAI_API_KEY

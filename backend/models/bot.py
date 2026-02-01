@@ -2,7 +2,7 @@ import openai as oai
 from dotenv import load_dotenv
 import os
 
-from backend.models.commands import add_task, remove_task, list_tasks, clear_tasks
+from models.commands import add_task, remove_task, list_tasks, clear_tasks
 
 # configurations
 load_dotenv()

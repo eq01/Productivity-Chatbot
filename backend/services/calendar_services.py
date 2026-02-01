@@ -4,7 +4,7 @@ from googleapiclient.discovery import build
 from datetime import datetime, timedelta
 import os
 import json
-from backend.config import Config
+from config import Config
 
 class CalendarService:
     SCOPES = ['https://www.googleapis.com/auth/calendar']

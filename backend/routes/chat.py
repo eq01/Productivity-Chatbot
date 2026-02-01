@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, request
-from backend.services.openai_service import OpenAIService
-from backend.services.tasks_service import TaskService
+from services.openai_service import OpenAIService
+from services.tasks_service import TaskService
 import openai
-from backend.config import Config
+from config import Config
 
 chat_bp = Blueprint('chat', __name__)
 openai_service = OpenAIService()

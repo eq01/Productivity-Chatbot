@@ -1,5 +1,5 @@
 from typing import List, Dict
-from backend.models.task import Task
+from models.task import Task
 
 class WorkloadBalancer:
     """Monitors daily workload while providing warnings when duration and/or tasks
